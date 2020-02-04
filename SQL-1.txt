@@ -1,0 +1,41 @@
+--zad1--
+SELECT city, postal_code
+FROM hr.locations;
+--zad2--
+SELECT country_name, region_id
+FROM hr.countries;
+--zad3--
+SELECT first_name as "Imię", last_name "Nazwisko", email "Email"
+FROM hr.employees;
+--zad4--
+--a--
+SELECT first_name as "Imię", last_name "Nazwisko", salary "Pensja", salary*3 "Wynagrodzenie kwartalne"
+FROM hr.employees
+ORDER BY salary*3 ASC;
+--b--
+SELECT first_name as "Imię", last_name "Nazwisko", salary "Pensja", salary*3 "Wynagrodzenie kwartalne"
+FROM hr.employees
+ORDER BY salary*3 DESC;
+--zad5--
+SELECT DISTINCT last_name as "Wybrani"
+FROM hr.employees
+ORDER BY last_name DESC;
+--zad6-- 
+SELECT 'Muszę zadzwonić pod numer '|| phone_number as "Zadzwonić", first_name||' '|| last_name  "Pracownik"
+FROM hr.employees;
+--zad7--
+SELECT first_name, last_name, (salary+salary*commission_pct)*3
+FROM hr.employees
+WHERE commission_pct != 0;
+--zad8--
+SELECT first_name as "Imię", last_name "Nazwisko", salary "Pensja"
+FROM hr.employees
+WHERE salary>3000;
+--zad9--
+SELECT first_name||' '||last_name||' zarabia '|| (salary+salary*commission_pct) ||' a chce zarabiać '|| (salary+salary*commission_pct)*2 as "Marzenia"
+FROM hr.employees
+WHERE commission_pct != 0;
+--zad10--
+SELECT first_name, phone_number
+FROM hr.employees
+WHERE first_name LIKE 'S%' AND phone_number LIKE '500%';
