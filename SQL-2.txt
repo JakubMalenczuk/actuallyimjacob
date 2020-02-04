@@ -1,0 +1,31 @@
+-ZAD1--
+SELECT substr(phone_number,-3)
+FROM hr.employees
+WHERE length(first_name)=6;
+--alternatywnie zad1 --
+SELECT SUBSTR(phone_number, LENGTH(phone_number)-2, 3) 
+FROM hr.employees
+WHERE LENGTH(first_name)=6;
+--zad2--
+SELECT rpad(last_name,length(last_name)+10,'*'), rtrim(rpad(last_name,length(last_name)+10,'*'),'*')
+FROM hr.employees;
+--zad3--
+SELECT upper(translate(first_name,'ae','dg')), first_name
+FROM hr.employees;
+--zad4--
+SELECT last_name, round(salary/160,2)
+FROM hr.employees;
+--zad5--
+SELECT substr(first_name,1,1)||'_'||substr(last_name,1,2)||department_id||substr(job_id,-1) as "KOD", job_id
+FROM hr.employees;
+--zad6--
+SELECT lower(first_name),lower(last_name),trunc(salary/30,3)
+FROM hr.employees
+WHERE last_name not like '%a%' and last_name not like '%a' and last_name not like 'A%';
+--zad7--
+SELECT employee_id,start_date,TO_CHAR(start_date,'MONTH')
+FROM hr.job_history;
+--zad8--
+SELECT FLOOR(TO_DATE('2019-12-31', 'YYYY-MM-DD') - sysdate),
+    round(MONTHS_BETWEEN(TO_DATE('2019-12-31', 'YYYY-MM-DD'),sysdate),0)
+FROM dual;

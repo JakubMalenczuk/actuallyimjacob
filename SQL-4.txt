@@ -1,0 +1,43 @@
+--zad1--
+SELECT d.department_name, count(CASE WHEN e.salary between 10001 and 19999 THEN 1 END)
+FROM hr.departments d
+JOIN hr.employees e
+ON d.department_id=e.department_id
+GROUP BY d.department_name
+ORDER BY d.department_name;
+
+
+--zad2--
+SELECT d.department_name, avg(e.salary+e.salary*nvl(e.commission_pct,0)), count(e.salary+e.salary*nvl(e.commission_pct,0))
+FROM hr.departments d
+JOIN hr.employees e
+ON d.department_id=e.department_id
+GROUP BY d.department_name
+HAVING count(e.salary+e.salary*nvl(e.commission_pct,0))>3;
+
+--zad4--
+SELECT last_name, salary
+FROM hr.employees
+WHERE salary> ( 
+    SELECT avg(e.salary)
+    FROM hr.employees e
+    JOIN hr.departments d
+    ON e.department_id=d.department_id
+    WHERE d.department_id=20);
+
+--zad5--
+SELECT *
+FROM hr.employees n
+JOIN hr.employees i
+ON i.last_name=n.first_name;
+UNION
+SELECT 'nikogo więcej już nie ma'
+FROM dual;
+
+--zad3--
+SELECT e.last_name, e.first_name
+FROM hr.employees e
+JOIN hr.jobs j 
+ON j.job_id=e.job_id
+WHERE e.salary>j.max_salary*0.5;
+

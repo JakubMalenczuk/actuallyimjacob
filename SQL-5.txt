@@ -1,0 +1,44 @@
+--zad1--
+SELECT r.region_name, count(e.employee_id)
+FROM hr.employees e
+JOIN hr.departments d
+ON e.department_id=d.department_id
+JOIN hr.locations l
+ON d.location_id=l.location_id
+JOIN hr.countries c
+ON l.country_id=c.country_id
+JOIN hr.regions r
+ON c.region_id=r.region_id
+GROUP BY r.region_name;
+
+--zad3--
+SELECT first_name, last_name, salary
+FROM hr.employees
+WHERE salary=0.5*(
+        SELECT salary
+        FROM hr.employees
+        WHERE employee_id=100)
+        
+SELECT *
+FROM hr.regions
+        
+
+--zad2--
+SELECT e.first_name, e.last_name, e.salary, l.postal_code, e.phone_number ,jh.start_date, e.employee_id
+FROM hr.employees e
+JOIN hr.departments d
+ON e.department_id=d.department_id
+JOIN hr.locations l
+ON d.location_id=l.location_id
+JOIN hr.countries c
+ON l.country_id=c.country_id
+JOIN hr.regions r
+ON c.region_id=r.region_id
+JOIN hr.job_history jh
+ON e.employee_id=jh.employee_id
+WHERE e.manager_id in (100,101,102,103) 
+        and e.phone_number LIKE '515.123%' 
+        and e.salary<10000 
+        and l.postal_code LIKE '98199' 
+        and r.region_id=2
+        and start_date<'01/JAN/05'

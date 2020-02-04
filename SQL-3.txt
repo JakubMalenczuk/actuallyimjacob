@@ -1,0 +1,39 @@
+--zad1--
+SELECT department_id AS "Nazwa departamentu", MAX(MONTHS_BETWEEN(end_date,start_date)) AS "Najdłuższy czas pracy", MIN(start_date) AS "Najwcześniejsza data zatrudnienia"
+FROM hr.job_history
+GROUP BY department_id;
+
+--zad2--
+SELECT *
+FROM( SELECT department_id , SUM(salary)
+FROM hr.employees
+GROUP BY department_id
+ORDER BY SUM(salary) desc)
+WHERE rownum<=1;
+
+--zad3--
+SELECT last_name
+FROM hr.employees
+WHERE (last_name LIKE '%a')
+INTERSECT
+SELECT last_name
+FROM hr.employees
+WHERE last_name LIKE 'A%' OR last_name LIKE '%a%';
+
+--zad4--
+SELECT *
+FROM (
+    SELECT job_id, TRUNC(MIN(salary+salary*commission_pct),2) 
+    FROM hr.employees
+    GROUP BY job_id
+    ORDER BY MIN(salary+salary*commission_pct))
+WHERE rownum<=2;
+
+
+--zad5--
+SELECT * 
+FROM ( 
+    SELECT department_id, first_name||' '||last_name, salary, dense_rank() over (partition by department_id order by salary desc) AS ranking
+    FROM hr.employees)
+WHERE ranking <= 2;
+
